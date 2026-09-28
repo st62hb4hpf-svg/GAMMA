@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GAMMA — An independent technology venture founded by Suryansh Singh, building thoughtful digital products in software and AI." />
+  <meta name="theme-color" content="#000000" />
+
+  <meta property="og:title" content="GAMMA — Building Digital Products" />
+  <meta property="og:description" content="An independent technology venture. Build. Learn. Iterate." />
+  <meta property="og:type" content="website" />
+
+  <title>GAMMA — Building Digital Products</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #000;
+      --bg-2: #060606;
+      --bg-3: #0c0c0c;
+      --line: rgba(255,255,255,0.09);
+      --line-strong: rgba(255,255,255,0.22);
+      --text: #fff;
+      --text-2: #b5b5b5;
+      --text-3: #777;
+      --text-4: #4a4a4a;
+      --sans: "Inter", Arial, Helvetica, sans-serif;
+      --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    html.locked { overflow: hidden; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+    ::selection { background: #fff; color: #000; }
+
+    :focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 6px; }
+
+    /* subtle film grain over everything */
+    body::after {
+      content: "";
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    /* ---------------- NAVBAR ---------------- */
+
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw;
+      background: rgba(0,0,0,0.6);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      z-index: 1000;
+    }
+
+    .brand { font-size: 19px; font-weight: 800; letter-spacing: 0.32em; }
+
+    .nav-links { display: flex; gap: 34px; list-style: none; font-size: 13px; color: var(--text-2); letter-spacing: 0.02em; }
+    .nav-links a { position: relative; padding: 6px 0; transition: color .25s ease; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%;
+      background: #fff; transform: scaleX(0); transform-origin: left; transition: transform .35s ease;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ---------------- HERO ---------------- */
+
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 6vw 80px; position: relative; overflow: hidden;
+    }
+
+    .hero::before {
+      content: ""; position: absolute; width: 720px; height: 720px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.10), transparent 68%);
+      filter: blur(36px); pointer-events: none;
+      animation: breathe 9s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 90px 90px;
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%);
+      mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%);
+      opacity: .5;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: .9; }
+      50% { transform: scale(1.12); opacity: 1; }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 950px; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 12px; margin-bottom: 30px;
+      font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-3);
+    }
+    .eyebrow::before, .eyebrow::after { content: ""; width: 28px; height: 1px; background: var(--line-strong); }
+
+    .hero h1 {
+      font-size: clamp(72px, 15vw, 190px); line-height: 0.88; letter-spacing: -0.07em;
+      font-weight: 800; margin-bottom: 36px;
+      background: linear-gradient(180deg, #fff 30%, #7c7c7c 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    .hero p { max-width: 600px; margin: auto; font-size: clamp(18px, 2vw, 23px); line-height: 1.55; color: var(--text-2); font-weight: 300; }
+
+    .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 44px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 15px 26px; border-radius: 999px;
+      font-size: 14px; font-weight: 600; border: 1px solid var(--line-strong);
+      transition: transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-solid { background: #fff; color: #000; border-color: #fff; }
+    .btn-solid:hover { background: #ddd; }
+    .btn-ghost:hover { background: #fff; color: #000; border-color: #fff; }
+
+    .scroll-hint {
+      position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--text-4);
+      display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 2;
+    }
+    .scroll-hint i { width: 1px; height: 38px; background: linear-gradient(#666, transparent); animation: drop 2.2s ease-in-out infinite; }
+    @keyframes drop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+    /* ---------------- MARQUEE ---------------- */
+
+    .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; padding: 22px 0; background: var(--bg-2); }
+    .marquee-track { display: flex; gap: 56px; width: max-content; animation: slide 32s linear infinite; }
+    .marquee span { font-size: 13px; letter-spacing: .26em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+    .marquee span b { color: var(--text-4); margin-left: 56px; font-weight: 400; }
+    @keyframes slide { to { transform: translateX(-50%); } }
+
+    /* ---------------- GENERAL SECTIONS ---------------- */
+
+    section { padding: 130px 7vw; }
+
+    .section-label { margin-bottom: 22px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-3); }
+
+    .section-title { max-width: 850px; font-size: clamp(38px, 6vw, 82px); line-height: 1; letter-spacing: -0.05em; font-weight: 700; }
+    .section-title em, .page-title em, .quote em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; color: var(--text-2); }
+
+    /* ---------------- ABOUT ---------------- */
+
+    .about { border-top: 1px solid var(--line); }
+    .about-grid { margin-top: 70px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .about-text { font-size: 21px; line-height: 1.65; color: var(--text-2); font-weight: 300; }
+    .about-details { display: grid; gap: 32px; align-content: start; }
+    .detail { border-top: 1px solid var(--line-strong); padding-top: 18px; }
+    .detail span { display: block; margin-bottom: 8px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--text-3); }
+    .detail strong { font-size: 20px; font-weight: 500; }
+
+    .link-arrow {
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 34px;
+      font-size: 14px; font-weight: 600; color: #fff; padding-bottom: 6px; border-bottom: 1px solid var(--line-strong);
+      transition: gap .3s ease, border-color .3s ease;
+    }
+    .link-arrow:hover { gap: 18px; border-color: #fff; }
+
+    /* ---------------- PRODUCT ---------------- */
+
+    .products { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    .product-card {
+      margin-top: 70px; min-height: 520px; border: 1px solid var(--line); border-radius: 30px;
+      padding: 60px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: space-between;
+      background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.09), transparent 32%), #090909;
+      transition: transform .45s ease, border-color .45s ease;
+    }
+    .product-card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,.3); }
+
+    .product-top { display: flex; justify-content: space-between; align-items: center; }
+    .product-number { color: var(--text-3); font-size: 12px; letter-spacing: .22em; }
+    .tag { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-2); border: 1px solid var(--line-strong); padding: 7px 14px; border-radius: 999px; }
+
+    .product-name { margin-top: 70px; font-size: clamp(60px, 10vw, 130px); line-height: .85; letter-spacing: -0.07em; font-weight: 800; }
+    .product-description { max-width: 540px; margin-top: 35px; color: #9a9a9a; font-size: 19px; line-height: 1.65; font-weight: 300; }
+
+    .product-feats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .product-feats span { font-size: 12px; color: var(--text-2); padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.02); }
+
+    /* ---------------- PHILOSOPHY ---------------- */
+
+    .philosophy { text-align: center; }
+    .philosophy-text { max-width: 950px; margin: 60px auto 0; font-size: clamp(30px, 5vw, 65px); line-height: 1.1; letter-spacing: -0.04em; font-weight: 700; }
+    .muted { color: #444; font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; }
+
+    /* ---------------- CONTACT ---------------- */
+
+    .contact { border-top: 1px solid var(--line); text-align: center; }
+    .contact p { margin: 30px auto 0; max-width: 550px; color: #888; font-size: 18px; line-height: 1.6; font-weight: 300; }
+    .contact .btn { margin-top: 35px; }
+
+    /* ---------------- FOOTER ---------------- */
+
+    footer {
+      padding: 35px 7vw; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+      color: #555; font-size: 13px;
+    }
+    .footer-brand { color: #fff; font-weight: 700; letter-spacing: .2em; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a:hover { color: #fff; }
+
+    /* ---------------- REVEAL ---------------- */
+
+    .reveal, .rv { opacity: 0; transform: translateY(32px); transition: opacity .9s ease, transform .9s ease; }
+    .reveal.visible, .rv.visible { opacity: 1; transform: none; }
+
+    /* ====================================================
+       FULL-SCREEN STORY PAGES (About GAMMA / About Alcove)
+       ==================================================== */
+
+    .page {
+      position: fixed; inset: 0; z-index: 2000; background: var(--bg);
+      overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain;
+      visibility: hidden; opacity: 0; transform: translateY(40px);
+      transition: opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1), visibility 0s linear .55s;
+    }
+    .page.open { visibility: visible; opacity: 1; transform: none; transition: opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1); }
+
+    .page-bar {
+      position: sticky; top: 0; z-index: 5; height: 72px; padding: 0 6vw;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(0,0,0,.72); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+    }
+    .page-bar .crumb { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-3); }
+    .page-bar .crumb b { color: #fff; font-weight: 700; letter-spacing: .3em; margin-right: 14px; }
+
+    .close-btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px;
+      border: 1px solid var(--line-strong); border-radius: 999px; font-size: 13px; font-weight: 600;
+      transition: background .25s ease, color .25s ease;
+    }
+    .close-btn:hover { background: #fff; color: #000; }
+    .close-btn kbd { font: 10px var(--sans); letter-spacing: .1em; color: var(--text-3); border: 1px solid var(--line-strong); border-radius: 5px; padding: 2px 6px; }
+    .close-btn:hover kbd { color: #000; border-color: rgba(0,0,0,.3); }
+
+    .progress { position: sticky; top: 71px; z-index: 6; height: 2px; background: transparent; }
+    .progress i { display: block; height: 100%; width: 0; background: #fff; }
+
+    .page-hero { padding: 150px 7vw 90px; position: relative; overflow: hidden; }
+    .page-hero::before {
+      content: ""; position: absolute; top: -260px; right: -200px; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,.08), transparent 68%); filter: blur(30px); pointer-events: none;
+    }
+    .page-title { max-width: 1000px; font-size: clamp(50px, 9vw, 128px); line-height: .92; letter-spacing: -0.06em; font-weight: 800; position: relative; }
+    .page-lede { max-width: 700px; margin-top: 40px; font-size: clamp(19px, 2.2vw, 26px); line-height: 1.55; color: var(--text-2); font-weight: 300; position: relative; }
+    .page-lede strong { color: #fff; font-weight: 600; }
+
+    .page-meta { display: flex; flex-wrap: wrap; gap: 48px; margin-top: 60px; position: relative; }
+    .page-meta div span { display: block; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; }
+    .page-meta div strong { font-size: 16px; font-weight: 500; }
+
+    .chapter { padding: 100px 7vw; border-top: 1px solid var(--line); display: grid; grid-template-columns: 260px 1fr; gap: 60px; }
+    .chapter .num { font-size: 12px; letter-spacing: .22em; color: var(--text-3); text-transform: uppercase; position: sticky; top: 120px; align-self: start; }
+    .chapter .num b { display: block; margin-top: 12px; font-size: 15px; letter-spacing: 0; text-transform: none; color: #fff; font-weight: 600; }
+    .chapter.alt { background: var(--bg-2); }
+
+    .prose { max-width: 760px; }
+    .prose h2 { font-size: clamp(32px, 4.4vw, 58px); line-height: 1.02; letter-spacing: -0.045em; font-weight: 700; margin-bottom: 34px; }
+    .prose h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin: 38px 0 12px; }
+    .prose p { font-size: 19px; line-height: 1.75; color: var(--text-2); font-weight: 300; margin-bottom: 22px; }
+    .prose p strong { color: #fff; font-weight: 600; }
+    .prose p.big { font-size: 24px; line-height: 1.5; color: #fff; }
+
+    .quote {
+      max-width: 900px; margin: 10px 0 0; padding: 40px 0 0; border-top: 1px solid var(--line-strong);
+      font-size: clamp(28px, 4vw, 52px); line-height: 1.12; letter-spacing: -0.04em; font-weight: 700;
+    }
+
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 40px; }
+    .cards.three { grid-template-columns: repeat(3, 1fr); }
+    .card { border: 1px solid var(--line); border-radius: 20px; padding: 28px; background: var(--bg-3); transition: border-color .3s ease, transform .3s ease; }
+    .card:hover { border-color: var(--line-strong); transform: translateY(-4px); }
+    .card i { display: block; font-style: normal; font-size: 11px; letter-spacing: .2em; color: var(--text-4); margin-bottom: 22px; }
+    .card h4 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .card p { font-size: 15px; line-height: 1.6; color: #8c8c8c; margin: 0; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 30px 0 34px; }
+    .chips span { font-size: 14px; padding: 10px 18px; border: 1px solid var(--line-strong); border-radius: 999px; color: #ddd; background: rgba(255,255,255,.02); }
+
+    .checks { list-style: none; margin-top: 30px; display: grid; gap: 0; }
+    .checks li { padding: 22px 0; border-top: 1px solid var(--line); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; display: flex; gap: 20px; }
+    .checks li:last-child { border-bottom: 1px solid var(--line); }
+    .checks li em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--text-4); min-width: 34px; }
+
+    .page-end { padding: 130px 7vw; text-align: center; border-top: 1px solid var(--line); background: var(--bg-2); }
+    .page-end h2 { font-size: clamp(38px, 6vw, 82px); letter-spacing: -0.05em; line-height: 1; font-weight: 800; }
+    .page-end p { margin: 26px auto 0; max-width: 520px; color: #888; font-size: 18px; line-height: 1.6; font-weight: 300; }
+    .page-end .btn-row { margin-top: 40px; }
+    .page-end small { display: block; margin-top: 70px; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--text-4); }
+
+    /* ---------------- MOBILE ---------------- */
+
+    @media (max-width: 900px) {
+      .chapter { grid-template-columns: 1fr; gap: 24px; padding: 80px 5vw; }
+      .chapter .num { position: static; }
+      .cards, .cards.three { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      nav { padding: 0 5vw; }
+      .nav-links { gap: 16px; font-size: 12px; }
+      section { padding: 95px 5vw; }
+      .about-grid { grid-template-columns: 1fr; gap: 50px; }
+      .product-card { padding: 32px; min-height: 460px; }
+      .product-name { margin-top: 50px; }
+      footer { flex-direction: column; gap: 15px; text-align: center; }
+      .page-bar { padding: 0 5vw; }
+      .page-bar .crumb span { display: none; }
+      .close-btn kbd { display: none; }
+      .page-hero { padding: 120px 5vw 70px; }
+      .page-end { padding: 100px 5vw; }
+      .prose p { font-size: 17.5px; }
+      .scroll-hint { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .reveal, .rv { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <nav>
+    <a href="#top" class="brand">GAMMA</a>
+
+    <ul class="nav-links">
+      <li><a href="#gamma-story" data-page>About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <main id="top">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-content reveal">
+
+        <span class="eyebrow">Independent Technology Venture</span>
+
+        <h1>GAMMA</h1>
+
+        <p>
+          Building digital products designed to connect,
+          communicate and create.
+        </p>
+
+        <div class="btn-row">
+          <a href="#products" class="btn btn-solid">Explore GAMMA</a>
+          <a href="#gamma-story" data-page class="btn btn-ghost">Our story →</a>
+        </div>
+
+      </div>
+
+      <div class="scroll-hint"><span>Scroll</span><i></i></div>
+
+    </section>
+
+
+    <!-- MARQUEE -->
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Software</span><span><b>·</b>Artificial Intelligence</span><span><b>·</b>Product Design</span><span><b>·</b>Engineering</span><span><b>·</b>Innovation</span><span><b>·</b>Build. Learn. Iterate.</span><span><b>·</b>Software</span><span><b>·</b>Artificial Intelligence</span><span><b>·</b>Product Design</span><span><b>·</b>Engineering</span><span><b>·</b>Innovation</span><span><b>·</b>Build. Learn. Iterate.</span>
+      </div>
+    </div>
+
+
+    <!-- ABOUT -->
+
+    <section id="about" class="about">
+
+      <div class="reveal">
+        <div class="section-label">01 — About</div>
+        <h2 class="section-title">Small ideas. <br><em>Built seriously.</em></h2>
+      </div>
+
+      <div class="about-grid">
+
+        <div class="reveal">
+          <p class="about-text">
+            GAMMA is an independent technology venture founded and owned by
+            <strong style="color:#fff;font-weight:600">Suryansh Singh</strong>, focused on
+            experimenting with software, artificial intelligence and digital experiences.
+            <br><br>
+            We build products from the ground up — turning ideas into working
+            experiences through design, engineering and continuous iteration.
+          </p>
+          <a href="#gamma-story" data-page class="link-arrow">Read the full story <span>→</span></a>
+        </div>
+
+        <div class="about-details reveal">
+          <div class="detail"><span>Type</span><strong>Independent Technology Venture</strong></div>
+          <div class="detail"><span>Founder</span><strong>Suryansh Singh</strong></div>
+          <div class="detail"><span>Focus</span><strong>Software · AI · Digital Products</strong></div>
+          <div class="detail"><span>Founded</span><strong>2026</strong></div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <section id="products" class="products">
+
+      <div class="reveal">
+        <div class="section-label">02 — Products</div>
+        <h2 class="section-title">What we're <em>building.</em></h2>
+      </div>
+
+      <div class="product-card reveal">
+
+        <div>
+          <div class="product-top">
+            <div class="product-number">PRODUCT 01</div>
+            <div class="tag">In development</div>
+          </div>
+
+          <h3 class="product-name">Alcove</h3>
+
+          <p class="product-description">
+            A fluid communication platform with AI built in — modern messaging,
+            expressive media, groups and personalization in one connected experience.
+          </p>
+
+          <div class="product-feats">
+            <span>Messaging</span><span>Voice</span><span>GIFs &amp; Reactions</span><span>Groups</span><span>Built-in AI</span>
+          </div>
+        </div>
+
+        <a href="#alcove-story" data-page class="link-arrow" style="align-self:flex-start">Explore Alcove <span>→</span></a>
+
+      </div>
+
+    </section>
+
+
+    <!-- PHILOSOPHY -->
+
+    <section class="philosophy">
+
+      <div class="section-label reveal">03 — Philosophy</div>
+
+      <div class="philosophy-text reveal">
+        Build things that are <span class="muted">useful.</span><br>
+        Make them <span class="muted">simple.</span><br>
+        Keep <span class="muted">improving.</span>
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section id="contact" class="contact">
+
+      <div class="reveal">
+        <div class="section-label">04 — Contact</div>
+        <h2 class="section-title" style="margin:auto">Let's <em>build.</em></h2>
+
+        <p>For questions, collaborations or conversations about GAMMA and its projects.</p>
+
+        <!-- Replace with your real email -->
+        <a href="mailto:hello@gamma.example" class="btn btn-solid">Get in touch</a>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+    <div class="footer-brand">GAMMA</div>
+    <div class="footer-links">
+      <a href="#gamma-story" data-page>About GAMMA</a>
+      <a href="#alcove-story" data-page>About Alcove</a>
+    </div>
+    <div>© 2026 GAMMA. Founded &amp; owned by Suryansh Singh.</div>
+  </footer>
+
+
+
+  <!-- =====================================================
+       PAGE: ABOUT GAMMA
+       ===================================================== -->
+
+  <article class="page" id="gamma-story" role="dialog" aria-modal="true" aria-label="About GAMMA" aria-hidden="true">
+
+    <div class="page-bar">
+      <div class="crumb"><b>GAMMA</b><span>About</span></div>
+      <a href="#about" data-close class="close-btn">Close <kbd>ESC</kbd></a>
+    </div>
+    <div class="progress"><i></i></div>
+
+    <header class="page-hero">
+      <div class="section-label rv">About GAMMA</div>
+      <h1 class="page-title rv">Building <em>what comes next.</em></h1>
+      <p class="page-lede rv">
+        <strong>GAMMA</strong> is an independent technology venture founded and owned by
+        <strong>Suryansh Singh</strong>, focused on exploring emerging technologies and
+        building thoughtful digital products.
+      </p>
+      <div class="page-meta rv">
+        <div><span>Founder</span><strong>Suryansh Singh</strong></div>
+        <div><span>Founded</span><strong>2026</strong></div>
+        <div><span>Focus</span><strong>Software · AI · Design</strong></div>
+      </div>
+    </header>
+
+    <section class="chapter">
+      <div class="num rv">01<b>The belief</b></div>
+      <div class="prose rv">
+        <h2>Ideas become valuable when they are built.</h2>
+        <p class="big">GAMMA exists around a simple belief: meaningful technology begins with strong ideas, but ideas become valuable when they are transformed into well-designed, functional experiences.</p>
+        <p>The company brings together product thinking, software development, artificial intelligence, digital design, experimentation and continuous learning under one vision.</p>
+        <p>GAMMA is built to explore what is possible, develop new ideas, and create technology with a clear purpose.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">02<b>Our vision</b></div>
+      <div class="prose rv">
+        <h2>Technology is changing faster than ever.</h2>
+        <p>Artificial intelligence is transforming how people work and create. Software is becoming increasingly connected and intelligent. Digital experiences are becoming more personalized, interactive and accessible.</p>
+        <p>GAMMA's vision is to participate in that evolution by creating products and experiences that make thoughtful use of modern technology.</p>
+        <div class="quote">The goal is not to follow trends. It is to <em>understand them, experiment with them,</em> and discover where they create genuine value.</div>
+        <p style="margin-top:34px">GAMMA aims to build technology that is useful, intuitive, reliable, and designed with the future in mind.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">03<b>What we do</b></div>
+      <div class="prose rv">
+        <h2>At the intersection of technology, product and experimentation.</h2>
+        <p>Our work spans multiple areas of modern technology:</p>
+        <div class="cards">
+          <div class="card"><i>01</i><h4>Software Development</h4><p>Designing and developing modern digital applications and software systems.</p></div>
+          <div class="card"><i>02</i><h4>Artificial Intelligence</h4><p>Exploring AI technologies and their potential to improve products, workflows and digital experiences.</p></div>
+          <div class="card"><i>03</i><h4>Product Development</h4><p>Turning concepts into functional products through research, design, development, testing and iteration.</p></div>
+          <div class="card"><i>04</i><h4>Digital Design</h4><p>Creating interfaces and experiences that balance simplicity, functionality and visual identity.</p></div>
+          <div class="card"><i>05</i><h4>Technology Research</h4><p>Experimenting with emerging technologies to understand their capabilities and potential applications.</p></div>
+          <div class="card"><i>06</i><h4>Innovation</h4><p>Exploring new ideas that could become useful products, tools or platforms.</p></div>
+        </div>
+        <p style="margin-top:34px">GAMMA is intentionally not limited to one category. Technology evolves continuously, and the company wants the freedom to explore new possibilities.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">04<b>Our approach</b></div>
+      <div class="prose rv">
+        <h2>Development is a continuous process.</h2>
+        <p>An idea begins as a concept. That concept is explored, designed, tested, challenged and developed into something tangible. The process does not end when a product is released — feedback, experimentation, technical discoveries and changing user needs can all lead to further improvement.</p>
+        <p>The approach can be summarized in three words:</p>
+        <div class="cards three">
+          <div class="card"><i>BUILD.</i><h4>Build</h4><p>Turn ideas into real experiences.</p></div>
+          <div class="card"><i>LEARN.</i><h4>Learn</h4><p>Understand what works, what fails, and why.</p></div>
+          <div class="card"><i>ITERATE.</i><h4>Iterate</h4><p>Improve continuously instead of treating the first version as the final one.</p></div>
+        </div>
+        <p style="margin-top:34px">This philosophy influences both the technical and creative sides of GAMMA.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">05<b>Technology with purpose</b></div>
+      <div class="prose rv">
+        <h2>Novelty alone is not enough.</h2>
+        <p>New technologies can be exciting, but novelty alone does not create a valuable product. Every technological decision should ultimately contribute to a better experience, a stronger system or a meaningful solution.</p>
+        <p>This matters most as artificial intelligence becomes increasingly integrated into software development and digital products. GAMMA explores AI not only as a product capability, but also as part of modern development workflows.</p>
+        <p>The company is interested in how AI can assist with research, ideation, development, automation, problem-solving and experimentation — while maintaining thoughtful human direction throughout the process.</p>
+        <div class="quote">Technology should <em>expand what people can create,</em> not replace the importance of good ideas and careful decisions.</div>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">06<b>Design philosophy</b></div>
+      <div class="prose rv">
+        <h2>Good technology should not require unnecessary complexity.</h2>
+        <p>GAMMA's design philosophy emphasizes clarity, simplicity, consistency and purposeful interaction. A product can contain sophisticated technology behind the scenes while presenting a straightforward experience to the person using it.</p>
+        <p>Visual identity is treated as an important part of that experience. Typography, spacing, motion, interaction, structure and visual hierarchy all contribute to how people understand and interact with technology.</p>
+        <p>GAMMA aims to create digital experiences where design and engineering work together rather than existing as separate disciplines.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">07<b>Engineering</b></div>
+      <div class="prose rv">
+        <h2>Fundamental to everything we build.</h2>
+        <p>The company explores modern development practices, software architecture, APIs, databases, cloud technologies, artificial intelligence, security, automation and other areas of contemporary computing.</p>
+        <p>GAMMA values experimentation, but experimentation should lead to understanding. Projects provide opportunities to test technologies in real environments, identify technical limitations, improve implementation strategies and develop stronger engineering practices.</p>
+        <p>The objective is continuous technical growth. As technologies change, GAMMA's engineering practices will evolve with them.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">08<b>Innovation</b></div>
+      <div class="prose rv">
+        <h2>Innovation through experimentation.</h2>
+        <p>Not every idea needs to become a company. Not every experiment needs to become a product. Sometimes the most valuable outcome of an experiment is what it teaches.</p>
+        <p>GAMMA therefore encourages exploration. Small prototypes can become larger projects. Research can lead to new ideas. Technical experiments can reveal opportunities that were not obvious at the beginning.</p>
+        <p>In this environment, an idea that does not become a finished product is not treated as a failure. Each experiment contributes knowledge to the next one.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">09<b>The founder</b></div>
+      <div class="prose rv">
+        <h2>Suryansh Singh.</h2>
+        <p class="big"><strong>Suryansh Singh</strong> is the founder and owner of GAMMA.</p>
+        <p>Through GAMMA, he focuses on exploring software development, artificial intelligence, product design, emerging technologies and digital innovation.</p>
+        <p>The company provides a framework for turning ideas into practical technology projects while continuously developing technical and product-development expertise.</p>
+        <p>GAMMA reflects a long-term interest in understanding how technology works, how products are created, and how emerging tools can be used to build new experiences. The company's direction will continue to evolve as new technologies, ideas and opportunities emerge.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">10<b>Looking forward</b></div>
+      <div class="prose rv">
+        <h2>Built with a long-term perspective.</h2>
+        <p>The technology landscape will continue to change. New programming paradigms will emerge. Artificial intelligence will become more capable. New interfaces will change how people interact with computers. Entirely new categories of digital products may appear.</p>
+        <p>GAMMA wants to remain adaptable throughout that change. Rather than committing to a single technology or product category, the company intends to keep the freedom to explore — software, artificial intelligence, digital platforms, creative tools, developer technologies, or areas that have not yet been explored.</p>
+        <p>The exact direction can evolve. The underlying principles remain constant.</p>
+        <div class="quote">Build thoughtfully. Learn continuously. Design with purpose. <em>Experiment fearlessly. Improve relentlessly.</em></div>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">11<b>Our principles</b></div>
+      <div class="prose rv">
+        <h2>What guides the work.</h2>
+        <div class="cards three">
+          <div class="card"><i>01</i><h4>Curiosity</h4><p>Meaningful innovation begins with asking questions and being willing to explore unfamiliar ideas.</p></div>
+          <div class="card"><i>02</i><h4>Simplicity</h4><p>Complex technology should create simple, understandable experiences.</p></div>
+          <div class="card"><i>03</i><h4>Craft</h4><p>Details matter. Good products are shaped through thoughtful design, careful engineering and continuous refinement.</p></div>
+          <div class="card"><i>04</i><h4>Experimentation</h4><p>New ideas need room to be tested, challenged and improved.</p></div>
+          <div class="card"><i>05</i><h4>Learning</h4><p>Every project should create knowledge that can be applied to the next.</p></div>
+          <div class="card"><i>06</i><h4>Responsibility</h4><p>Technology should be developed with consideration for reliability, security, privacy and its impact on the people who use it.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">12<b>The GAMMA standard</b></div>
+      <div class="prose rv">
+        <h2>Four questions.</h2>
+        <p>GAMMA holds its work to a simple standard. These questions guide how ideas are evaluated and developed:</p>
+        <ul class="checks">
+          <li><em>i.</em>Does it solve something meaningful?</li>
+          <li><em>ii.</em>Is it thoughtfully designed?</li>
+          <li><em>iii.</em>Does the technology genuinely add value?</li>
+          <li><em>iv.</em>Can it be improved?</li>
+        </ul>
+        <div class="quote">The objective is not to build the largest number of products. It is to <em>build things worth building.</em></div>
+      </div>
+    </section>
+
+    <footer class="page-end">
+      <h2>GAMMA</h2>
+      <p>Independent Technology Venture. Founded &amp; owned by Suryansh Singh.</p>
+      <div class="btn-row">
+        <a href="#alcove-story" data-page class="btn btn-solid">Explore Alcove →</a>
+        <a href="#about" data-close class="btn btn-ghost">Back to site</a>
+      </div>
+      <small>Build. Learn. Iterate.</small>
+    </footer>
+
+  </article>
+
+
+
+  <!-- =====================================================
+       PAGE: ABOUT ALCOVE
+       ===================================================== -->
+
+  <article class="page" id="alcove-story" role="dialog" aria-modal="true" aria-label="About Alcove" aria-hidden="true">
+
+    <div class="page-bar">
+      <div class="crumb"><b>ALCOVE</b><span>by GAMMA</span></div>
+      <a href="#products" data-close class="close-btn">Close <kbd>ESC</kbd></a>
+    </div>
+    <div class="progress"><i></i></div>
+
+    <header class="page-hero">
+      <div class="section-label rv">About Alcove</div>
+      <h1 class="page-title rv">Communication, <em>reimagined.</em></h1>
+      <p class="page-lede rv">
+        <strong>Alcove</strong> is a modern communication platform built to make digital
+        conversations more fluid, expressive and connected. The goal is simple:
+        <strong>make communication feel less rigid and more natural.</strong>
+      </p>
+      <div class="page-meta rv">
+        <div><span>Product</span><strong>01 by GAMMA</strong></div>
+        <div><span>Category</span><strong>Communication platform</strong></div>
+        <div><span>Signature</span><strong>AI built in</strong></div>
+      </div>
+    </header>
+
+    <section class="chapter">
+      <div class="num rv">01<b>Beyond the message thread</b></div>
+      <div class="prose rv">
+        <h2>A broader approach to conversation.</h2>
+        <p>Traditional communication apps have largely centered around a familiar model: open a conversation, type a message, send it, and repeat. Alcove takes a broader approach.</p>
+        <p>It brings communication, expression, personalization, media, interactive features and artificial intelligence together within a fluid interface designed around how people communicate today.</p>
+        <p>Alcove is designed to reduce the friction between different forms of digital interaction, allowing conversations to move naturally between text, media, reactions, voice, GIFs, groups and AI-powered experiences.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">02<b>Fluid communication</b></div>
+      <div class="prose rv">
+        <h2>Communication is rarely limited to one format.</h2>
+        <p>A conversation can move from a text message to an image, from an image to a reaction, from a reaction to a voice message, and from there to an AI-powered interaction.</p>
+        <p>Traditional applications often separate these experiences into different areas or workflows. Alcove is designed around a more fluid approach: it brings different communication capabilities into one connected environment, so users can move between features without feeling like they are switching between separate systems.</p>
+        <p>This fluidity is one of the central ideas behind Alcove. The interface is designed to feel responsive, modern and natural while keeping the core communication experience straightforward.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">03<b>AI, built in</b></div>
+      <div class="prose rv">
+        <h2>Intelligence, where the conversation is.</h2>
+        <p>Artificial intelligence is already integrated into Alcove. The platform uses an <strong>API-powered AI system</strong> to provide AI functionality directly within the application.</p>
+        <p>Instead of treating AI as a separate service that users must leave the platform to access, Alcove brings AI capabilities into the same environment where communication takes place. This creates the possibility of interacting with AI alongside normal conversations and digital experiences.</p>
+        <p>The AI integration is part of Alcove's broader philosophy: useful technology should be accessible where it is needed. The AI layer can evolve as the underlying AI technology and Alcove itself develop, allowing new intelligent capabilities to be introduced over time.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">04<b>More than messaging</b></div>
+      <div class="prose rv">
+        <h2>Express yourself through whatever fits the moment.</h2>
+        <p>At its foundation is communication, but Alcove is designed around a wider set of digital interactions. Users can communicate through:</p>
+        <div class="chips">
+          <span>Text messages</span><span>Images</span><span>Videos</span><span>Voice messages</span><span>Emoji</span><span>Reactions</span><span>GIFs</span><span>Personal &amp; group conversations</span><span>AI-powered interactions</span><span>Profiles &amp; personalization</span>
+        </div>
+        <p>These capabilities are designed to work together rather than feeling like isolated additions. The objective is an environment where users can express themselves through whatever medium fits the moment.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">05<b>A more expressive experience</b></div>
+      <div class="prose rv">
+        <h2>Text is powerful. It is not always enough.</h2>
+        <div class="cards">
+          <div class="card"><i>EMOJI</i><h4>Emotion</h4><p>Emoji add feeling to a message.</p></div>
+          <div class="card"><i>REACTIONS</i><h4>Instant response</h4><p>Reactions provide a reply in a single tap.</p></div>
+          <div class="card"><i>GIFS</i><h4>Visual feeling</h4><p>GIFs communicate a mood or reaction visually.</p></div>
+          <div class="card"><i>VOICE</i><h4>Another layer</h4><p>Voice messages add tone and personality.</p></div>
+        </div>
+        <p style="margin-top:34px">Images and videos communicate experiences that words cannot fully describe. Alcove brings these forms of expression together to make conversations more dynamic — closer to how people naturally communicate, rather than forcing every interaction into the same format.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">06<b>Personal conversations</b></div>
+      <div class="prose rv">
+        <h2>Focused, and still flexible.</h2>
+        <p>Alcove provides dedicated spaces for personal communication. Private conversations are designed to remain focused while still giving users access to the broader communication capabilities available across the platform.</p>
+        <p>Messaging, media, reactions, voice communication, GIFs and AI can become part of the same conversational experience. The intention is to keep personal conversations flexible without making them unnecessarily complicated.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">07<b>Group communication</b></div>
+      <div class="prose rv">
+        <h2>Shared spaces for the people who matter.</h2>
+        <p>Communication also happens in groups. Friends, classmates, teams, communities and other groups need spaces where multiple people can communicate and share experiences.</p>
+        <p>Alcove supports group conversations as part of its communication environment. Groups allow multiple participants to interact within shared spaces while accessing the same expressive communication capabilities. The design focuses on keeping group interaction organized while maintaining the fluid nature of the platform.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">08<b>Personalization</b></div>
+      <div class="prose rv">
+        <h2>A platform should feel personal.</h2>
+        <p>Alcove includes customization features that allow users to make their experience feel more like their own environment. Profiles, wallpapers, interface preferences and other personalization features contribute to this experience.</p>
+        <p>Rather than imposing a single visual identity on every user, Alcove gives users ways to customize aspects of their environment while maintaining a consistent product experience.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">09<b>Designed as one experience</b></div>
+      <div class="prose rv">
+        <h2>Not a collection of unrelated tools.</h2>
+        <p>One of Alcove's fundamental design principles is reducing unnecessary separation between features. Communication should not feel like a collection of unrelated tools, so the platform is designed as a connected environment where different capabilities can coexist naturally.</p>
+        <p>The interface, interactions and features are developed with this principle in mind. This gives Alcove a more fluid character than traditional applications that primarily revolve around conventional message threads.</p>
+        <div class="quote">The aim is not to add complexity. It is to <em>make more capabilities available</em> without making the experience feel fragmented.</div>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">10<b>Technology</b></div>
+      <div class="prose rv">
+        <h2>Built with modern web technologies.</h2>
+        <p>Alcove is built using modern web technologies and development practices. Its development involves frontend engineering, backend systems, APIs, databases, authentication, AI integration, real-time communication concepts, application security and user-interface design.</p>
+        <p>The AI functionality is connected through APIs, allowing Alcove to integrate intelligent capabilities into its existing application environment. This architecture also provides flexibility for the AI experience to evolve as models, APIs and product requirements change.</p>
+        <p>Development remains an iterative process. Features are implemented, tested, refined and improved as the platform continues to evolve.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">11<b>Privacy &amp; security</b></div>
+      <div class="prose rv">
+        <h2>Responsible by design.</h2>
+        <p>Communication platforms handle personal information, making privacy and security important parts of responsible product development.</p>
+        <p>Alcove incorporates security considerations across its architecture, including authentication, database access controls and secure handling of application data. The project also explores modern approaches to secure communication and end-to-end encryption.</p>
+        <p>Security is treated as an ongoing engineering consideration rather than a feature that exists independently from the rest of the product. As Alcove develops further, these systems can continue to be strengthened and refined.</p>
+      </div>
+    </section>
+
+    <section class="chapter alt">
+      <div class="num rv">12<b>Built to evolve</b></div>
+      <div class="prose rv">
+        <h2>Adaptable by nature.</h2>
+        <p>Technology changes rapidly, particularly in areas such as artificial intelligence, communication and web applications. A modern product therefore needs to remain adaptable.</p>
+        <p>Alcove's architecture and product direction allow new capabilities to be explored while continuing to improve existing experiences — through new features, better interactions, improved performance and advances in the technologies behind it.</p>
+        <p>The objective is not simply to create another messaging application. It is to continuously improve what a communication platform can be.</p>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <div class="num rv">13<b>The vision</b></div>
+      <div class="prose rv">
+        <h2>Fluid. Expressive. Intelligent. Personal.</h2>
+        <p>Alcove's vision is to create a communication experience that feels <strong>fluid, expressive, intelligent and personal</strong>. It combines familiar communication methods with modern digital capabilities, including integrated AI.</p>
+        <div class="quote">Communication should <em>adapt to people,</em> not force people to adapt to the platform.</div>
+        <p style="margin-top:34px">Whether someone wants to send a message, share media, react, record a voice note, talk with a group or interact with AI, the experience should feel connected. That is the direction Alcove is built toward.</p>
+      </div>
+    </section>
+
+    <footer class="page-end">
+      <h2>Alcove</h2>
+      <p>A fluid communication platform with AI built in.</p>
+      <div class="btn-row">
+        <a href="#gamma-story" data-page class="btn btn-solid">About GAMMA →</a>
+        <a href="#products" data-close class="btn btn-ghost">Back to site</a>
+      </div>
+      <small>Connect. Express. Communicate.</small>
+    </footer>
+
+  </article>
+
+
+  <script>
+    (function () {
+
+      var root = document.documentElement;
+      var pages = {
+        "#gamma-story": document.getElementById("gamma-story"),
+        "#alcove-story": document.getElementById("alcove-story")
+      };
+      var lastFocus = null;
+      var revealIO = null;
+
+      /* ---------- scroll reveal on the main site ---------- */
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+      /* ---------- story pages ---------- */
+
+      function setupPage(page) {
+        var bar = page.querySelector(".progress i");
+
+        var pio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add("visible"); pio.unobserve(e.target); }
+          });
+        }, { root: page, threshold: 0.1 });
+
+        page.querySelectorAll(".rv").forEach(function (el) { pio.observe(el); });
+
+        page.addEventListener("scroll", function () {
+          var max = page.scrollHeight - page.clientHeight;
+          bar.style.width = (max > 0 ? (page.scrollTop / max) * 100 : 0) + "%";
+        }, { passive: true });
+      }
+
+      Object.keys(pages).forEach(function (k) { setupPage(pages[k]); });
+
+      function sync() {
+        var page = pages[location.hash];
+
+        Object.keys(pages).forEach(function (k) {
+          var p = pages[k];
+          var shouldOpen = (p === page);
+          if (shouldOpen && !p.classList.contains("open")) {
+            lastFocus = document.activeElement;
+            p.scrollTop = 0;
+            p.classList.add("open");
+            p.setAttribute("aria-hidden", "false");
+            var closeBtn = p.querySelector(".close-btn");
+            setTimeout(function () { closeBtn && closeBtn.focus({ preventScroll: true }); }, 60);
+          } else if (!shouldOpen && p.classList.contains("open")) {
+            p.classList.remove("open");
+            p.setAttribute("aria-hidden", "true");
+          }
+        });
+
+        root.classList.toggle("locked", !!page);
+        if (!page && lastFocus && lastFocus.focus) { lastFocus.focus({ preventScroll: true }); lastFocus = null; }
+      }
+
+      window.addEventListener("hashchange", sync);
+      sync();
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key !== "Escape") return;
+        if (location.hash === "#gamma-story") location.hash = "#about";
+        else if (location.hash === "#alcove-story") location.hash = "#products";
+      });
+
+      /* ---------- smooth navigation (normal anchors only) ---------- */
+
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        if (link.hasAttribute("data-page") || link.hasAttribute("data-close")) return;
+
+        link.addEventListener("click", function (event) {
+          var id = link.getAttribute("href");
+          if (id === "#") { event.preventDefault(); return; }
+          var target = document.querySelector(id);
+          if (!target) return;
+          event.preventDefault();
+          target.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
